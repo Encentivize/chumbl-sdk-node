@@ -1,6 +1,6 @@
 {
   "name": "chumbl",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Wrapper for chumbl api",
   "main": "./index.js",
   "author": {
@@ -19,6 +19,6 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/Encentivize/chumbl",
-  "_id": "chumbl@1.0.6",
+  "_id": "chumbl@1.0.7",
   "_from": "chumbl@"
 }
