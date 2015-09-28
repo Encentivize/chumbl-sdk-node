@@ -1,6 +1,6 @@
 #chumbl
 
-Node wrapper for chumbl calculation service.
+Node wrapper for chumbl calculation service. boom. 
 
 ##API
 
