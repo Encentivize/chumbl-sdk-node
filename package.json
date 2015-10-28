@@ -1,6 +1,6 @@
 {
   "name": "chumbl",
-  "version": "1.0.19",
+  "version": "2.0.0",
   "description": "Wrapper for chumbl api",
   "main": "./index.js",
   "author": {
