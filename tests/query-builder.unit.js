@@ -91,4 +91,48 @@ describe('Tests for query builder - ', function () {
         }
         assert.isTrue(errorOccurred);
     });
+    it('15. If options.metrics is passed through and it is a string it should be included in the url', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+        var result = buildUrl(testUrl, {metrics: "testerising"});
+        assert.equal(result, testUrl + "?metrics=testerising");
+    });
+    it('16. If options.metrics is passed through and it is a string array it should be included in the url, joined by commas', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+        var result = buildUrl(testUrl, {metrics: ["testerising1", "testerising2"]});
+        assert.equal(result, testUrl + "?metrics=testerising1,testerising2");
+    });
+    it('16. If options.metrics is passed through and it is a number there should be an error', function () {
+        var errorOccurred = false;
+        try {
+            var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+            buildUrl(testUrl, {metrics: 2});
+        }
+        catch (err) {
+            errorOccurred = true;
+        }
+        assert.isTrue(errorOccurred);
+    });
+    it('17. If options.metrics is passed through and it is an object there should be an error', function () {
+        var errorOccurred = false;
+        try {
+            var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+            buildUrl(testUrl, {metrics: {'asd': true}});
+        }
+        catch (err) {
+            errorOccurred = true;
+        }
+        assert.isTrue(errorOccurred);
+    });
+    it('18. If options.metrics is passed through and it is an object array there should be an error', function () {
+        var errorOccurred = false;
+        var res;
+        try {
+            var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+            res = buildUrl(testUrl, {metrics: [{'asd': true}]});
+        }
+        catch (err) {
+            errorOccurred = true;
+        }
+        assert.isTrue(errorOccurred,JSON.stringify(res));
+    });
 });
