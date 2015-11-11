@@ -1,12 +1,14 @@
 'use strict';
-var gulp = require('gulp'),
-    jshint = require('gulp-jshint'),
-    argv = require('yargs').argv,
-    npm = require('npm'),
-    fs = require('fs');
+var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+var argv = require('yargs').argv;
+var npm = require('npm');
+var fs = require('fs');
+var istanbul = require('gulp-istanbul');
+var mocha = require('gulp-mocha');
 
 var jsPath = ['./lib/**/*.js'];
-
+var testsPath = ['./tests/**/*.unit.js'];
 gulp.task('lint', function () {
     return gulp.src(jsPath)
         .pipe(jshint())
@@ -14,13 +16,32 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('default', ['lint']);
+gulp.task('default', ['lint', 'tests']);
 
-gulp.task('watch', ['lint'], function () {
-    gulp.watch(jsPath, ['lint']);
+gulp.task('watch', ['lint', 'tests'], function () {
+    gulp.watch(jsPath, ['lint', 'tests']);
 });
 
-gulp.task('npmPublish', function (callback) {
+gulp.task('tests', function (callback) {
+    gulp.src(jsPath)
+        .pipe(istanbul({
+            includeUntested: true
+        }))
+        .pipe(istanbul.hookRequire())
+        .on('finish', function () {
+            gulp.src(testsPath, {
+                read: false
+            })
+                .pipe(mocha({
+                    reporter: 'nyan'
+                }))
+                .pipe(istanbul.writeReports())
+                .pipe(istanbul.enforceThresholds({thresholds: {global: 0}})) // Enforce a coverage of at least 0% probably a good idea to change this value
+                .on('end', callback);
+        });
+});
+
+gulp.task('npmPublish', ['lint', 'tests'], function (callback) {
     var username = argv.username;
     var password = argv.password;
     var email = argv.email;
