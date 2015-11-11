@@ -14,8 +14,9 @@
   "dependencies": {
     "async": "0.9.0",
     "lodash": "3.10.1",
+    "memory-cache": "0.1.4",
     "request": "2.62.0",
-    "memory-cache": "0.1.4"
+    "underscore.string": "3.2.2"
   },
   "devDependencies": {
     "fs": "0.0.2",
