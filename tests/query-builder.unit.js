@@ -125,24 +125,46 @@ describe('Tests for query builder - ', function () {
     });
     it('18. If options.metrics is passed through and it is an object array there should be an error', function () {
         var errorOccurred = false;
-        var res;
         try {
             var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
-            res = buildUrl(testUrl, {metrics: [{'asd': true}]});
+            buildUrl(testUrl, {metrics: [{'asd': true}]});
         }
         catch (err) {
             errorOccurred = true;
         }
-        assert.isTrue(errorOccurred, JSON.stringify(res));
+        assert.isTrue(errorOccurred);
     });
-    it('16. If the url contains {targetDate} but the options does not have a value for it, it should be removed from the url', function () {
+    it('19. If the url contains {targetDate} but the options does not have a value for it, it should be removed from the url', function () {
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
         var result = buildUrl(testUrl);
         assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/');
     });
-    it('17. If the url contains {targetDate} ands the options does have a value for it, it should remain in the url', function () {
+    it('20. If the url contains {targetDate} and the options.targetDate is a Date object, then the ISO formatted string should remain in the url', function () {
+        var now = new Date();
+        var nowString = now.toISOString();
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
-        var result = buildUrl(testUrl, {targetDate: "bob"});
+        var options = {targetDate: now};
+        var result = buildUrl(testUrl, options);
         assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/{targetDate}');
+        assert.equal(options.targetDate, nowString);
+    });
+    it('21. If the url contains {targetDate} and the options.targetDate has a string that is not a date, there should be an error', function () {
+        var errorOccurred = false;
+        try {
+            var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
+            buildUrl(testUrl, {targetDate: "bob"});
+        }
+        catch (err) {
+            errorOccurred = true;
+        }
+        assert.isTrue(errorOccurred);
+    });
+    it('22. If the url contains {targetDate} and the options.targetDate is a Date string, then the ISO formatted string should remain in the url', function () {
+        var dateString = 'Wed Nov 11 2015 13:08:15 GMT+0200 (South Africa Standard Time)';
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
+        var options = {targetDate: dateString};
+        var result = buildUrl(testUrl, options);
+        assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/{targetDate}');
+        assert.equal(options.targetDate, new Date(dateString).toISOString());
     });
 });
