@@ -5,13 +5,14 @@ require('../test-init');
 var buildUrl = require('../lib/query-builder');
 describe('Tests for query builder - ', function () {
     it('1. Should fail if no url provided', function () {
+        var errorOccurred = false;
         try {
             buildUrl();
-            assert.ok(null, 'query builder did not throw an error with an empty url');
         }
         catch (err) {
-            assert.ok(err);
+            errorOccurred = true;
         }
+        assert.isTrue(errorOccurred);
     });
     it('2. if no options are provided the same url should be returned', function () {
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/a?e=123&eqw=12";
@@ -57,5 +58,37 @@ describe('Tests for query builder - ', function () {
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
         var result = buildUrl(testUrl, {query: "jack=12", rawQuery: {bob: 1}});
         assert.equal(result, testUrl + '?jack=12&rawQuery={"bob":1}');
+    });
+    it('11. If the query value is an objcet it should be automatically stringified', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+        var result = buildUrl(testUrl, {query: {bob: 1}});
+        assert.equal(result, testUrl + "?bob=1");
+    });
+    it('12. If options.aggregate is passed through it should be included in the url', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+        var result = buildUrl(testUrl, {aggregate: "ammount:sum"});
+        assert.equal(result, testUrl + "?aggregate=ammount:sum");
+    });
+    it('13. If options.aggregate is not a string it should cause an error', function () {
+        var errorOccurred = false;
+        try {
+            var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+            buildUrl(testUrl, {aggregate: 4});
+        }
+        catch (err) {
+            errorOccurred = true;
+        }
+        assert.isTrue(errorOccurred);
+    });
+    it('14. If options.aggregate string did not contain a : it should cause an error', function () {
+        var errorOccurred = false;
+        try {
+            var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+            buildUrl(testUrl, {aggregate: "ammount.sum"});
+        }
+        catch (err) {
+            errorOccurred = true;
+        }
+        assert.isTrue(errorOccurred);
     });
 });
