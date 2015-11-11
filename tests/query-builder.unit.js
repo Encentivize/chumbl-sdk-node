@@ -133,6 +133,16 @@ describe('Tests for query builder - ', function () {
         catch (err) {
             errorOccurred = true;
         }
-        assert.isTrue(errorOccurred,JSON.stringify(res));
+        assert.isTrue(errorOccurred, JSON.stringify(res));
+    });
+    it('16. If the url contains {targetDate} but the options does not have a value for it, it should be removed from the url', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
+        var result = buildUrl(testUrl);
+        assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/');
+    });
+    it('17. If the url contains {targetDate} ands the options does have a value for it, it should remain in the url', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
+        var result = buildUrl(testUrl, {targetDate: "bob"});
+        assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/{targetDate}');
     });
 });
