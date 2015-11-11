@@ -3,6 +3,7 @@
 require('../test-init');
 /* ----========[ end of test file setup ]========---- */
 var buildUrl = require('../lib/query-builder');
+var moment = require('moment');
 describe('Tests for query builder - ', function () {
     it('1. Should fail if no url provided', function () {
         var errorOccurred = false;
@@ -166,5 +167,13 @@ describe('Tests for query builder - ', function () {
         var result = buildUrl(testUrl, options);
         assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/{targetDate}');
         assert.equal(options.targetDate, new Date(dateString).toISOString());
+    });
+    it('22. If the url contains {targetDate} and the options.targetDate is a moment date, then the ISO formatted string should remain in the url', function () {
+        var now = moment();
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
+        var options = {targetDate: now};
+        var result = buildUrl(testUrl, options);
+        assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/{targetDate}');
+        assert.equal(options.targetDate, now.toISOString());
     });
 });
