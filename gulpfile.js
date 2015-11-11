@@ -16,10 +16,10 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('default', ['lint']);
+gulp.task('default', ['lint', 'tests']);
 
-gulp.task('watch', ['lint'], function () {
-    gulp.watch(jsPath, ['lint']);
+gulp.task('watch', ['lint', 'tests'], function () {
+    gulp.watch(jsPath, ['lint', 'tests']);
 });
 
 gulp.task('tests', function (callback) {
@@ -41,7 +41,7 @@ gulp.task('tests', function (callback) {
         });
 });
 
-gulp.task('npmPublish', function (callback) {
+gulp.task('npmPublish', ['lint', 'tests'], function (callback) {
     var username = argv.username;
     var password = argv.password;
     var email = argv.email;
