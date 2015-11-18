@@ -15,10 +15,16 @@ describe('Tests for query builder - ', function () {
         }
         assert.isTrue(errorOccurred);
     });
-    it('2. if no options are provided the same url should be returned', function () {
+    it('2. if no options are provided there should be an error', function () {
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/a?e=123&eqw=12";
-        var result = buildUrl(testUrl);
-        assert.equal(testUrl, result, 'built url was not the same as the input url when no options provided.');
+        var errorOccurred = false;
+        try {
+            var result = buildUrl(testUrl);
+        }
+        catch (err) {
+            errorOccurred = true;
+        }
+        assert.isTrue(errorOccurred);
     });
     it('3. the query object should get added on to the url', function () {
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
@@ -137,7 +143,7 @@ describe('Tests for query builder - ', function () {
     });
     it('19. If the url contains {targetDate} but the options does not have a value for it, it should be removed from the url', function () {
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
-        var result = buildUrl(testUrl);
+        var result = buildUrl(testUrl,{});
         assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/');
     });
     it('20. If the url contains {targetDate} and the options.targetDate is a Date object, then the ISO formatted string should remain in the url', function () {
