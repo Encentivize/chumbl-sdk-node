@@ -8,3 +8,9 @@ testing.js
 coverage.html
 lib-cov
 .idea/
+tests/
+coverage/
+.jshintrc
+.npmignore
+gulpfile.js
+test-init.js
