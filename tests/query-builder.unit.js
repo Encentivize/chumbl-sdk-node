@@ -19,7 +19,7 @@ describe('Tests for query builder - ', function () {
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/a?e=123&eqw=12";
         var errorOccurred = false;
         try {
-            var result = buildUrl(testUrl);
+            buildUrl(testUrl);
         }
         catch (err) {
             errorOccurred = true;
@@ -143,7 +143,7 @@ describe('Tests for query builder - ', function () {
     });
     it('19. If the url contains {targetDate} but the options does not have a value for it, it should be removed from the url', function () {
         var testUrl = "http://qh3i12h34234jazsdzx.asds.zc/{targetDate}";
-        var result = buildUrl(testUrl,{});
+        var result = buildUrl(testUrl, {});
         assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/');
     });
     it('20. If the url contains {targetDate} and the options.targetDate is a Date object, then the ISO formatted string should remain in the url', function () {
@@ -181,5 +181,40 @@ describe('Tests for query builder - ', function () {
         var result = buildUrl(testUrl, options);
         assert.equal(result, 'http://qh3i12h34234jazsdzx.asds.zc/{targetDate}');
         assert.equal(options.targetDate, now.toISOString());
+    });
+    it('23. If options.definitionQuery is passed through and it is a string it should be included in the url', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+        var result = buildUrl(testUrl, {definitionQuery: "testerising"});
+        assert.equal(result, testUrl + "?definitionQuery=testerising");
+    });
+    it('24. If options.definitionQuery is passed through and it is an object it should be included in the url', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+        var result = buildUrl(testUrl, {definitionQuery: {name: 'memberActivityOfHiFive'}});
+        assert.equal(result, testUrl + '?definitionQuery=name%3DmemberActivityOfHiFive');
+    });
+    it('25. If options.definitionQuery is passed through and it is an object and contains rawQuery it should be included in the url', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+        var definitionQuery = {
+            definitionQuery: {
+                rawQuery: {
+                    name: {$regex: "memberActivityOf", $options: "i"}
+                }
+            }
+        };
+        var result = buildUrl(testUrl, definitionQuery);
+        assert.equal(result, testUrl + '?definitionQuery=rawQuery%3D%7B%22name%22%3A%7B%22%24regex%22%3A%22memberActivityOf%22%2C%22%24options%22%3A%22i%22%7D%7D');
+    });
+    it('26. If options.definitionQuery is passed through and it is an object and contains rawQuery and a nother property it should be included in the url', function () {
+        var testUrl = "http://qh3i12h34234jazsdzx.asds.zc";
+        var definitionQuery = {
+            definitionQuery: {
+                name: 'memberActivityOfKudos',
+                rawQuery: {
+                    name: {$regex: "memberActivityOf", $options: "i"}
+                }
+            }
+        };
+        var result = buildUrl(testUrl, definitionQuery);
+        assert.equal(result, testUrl + '?definitionQuery=rawQuery%3D%7B%22name%22%3A%7B%22%24regex%22%3A%22memberActivityOf%22%2C%22%24options%22%3A%22i%22%7D%7D%26name%3DmemberActivityOfKudos');
     });
 });
