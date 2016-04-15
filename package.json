@@ -30,6 +30,7 @@
         "istanbul": "0.4.0",
         "mocha": "2.3.3",
         "npm": "2.8.3",
+        "rewire": "2.5.1",
         "yargs": "3.10.0"
     },
     "engines": {
