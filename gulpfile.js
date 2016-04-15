@@ -9,6 +9,7 @@ var mocha = require('gulp-mocha');
 
 var jsPath = ['./lib/**/*.js'];
 var testsPath = ['./tests/**/*.unit.js'];
+
 gulp.task('lint', function () {
     return gulp.src(jsPath)
         .pipe(jshint())
@@ -30,8 +31,8 @@ gulp.task('tests', function (callback) {
         .pipe(istanbul.hookRequire())
         .on('finish', function () {
             gulp.src(testsPath, {
-                read: false
-            })
+                    read: false
+                })
                 .pipe(mocha({
                     reporter: 'nyan'
                 }))
