@@ -1,18 +1,23 @@
-# EditorConfig is awesome: http://EditorConfig.org
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# editorconfig.org
 
-# top-most EditorConfig file
 root = true
 
-# Unix-style newlines with a newline ending every file
-[*]
-end_of_line = crlf
-insert_final_newline = false
-
-# Matches multiple files with brace expansion notation
-# Set default charset
-[*.*]
+# We recommend you to keep these unchanged
 charset = utf-8
-indent_style = space
-indent_size = 4
+end_of_line = lf
+insert_final_newline = true
 trim_trailing_whitespace = true
-max_line_length = 180
+
+# Change these settings to your own preference
+[*]
+indent_size = 4
+indent_style = space
+
+[*.{json,yml,css,less,config}]
+indent_size = 2
+
+[*.md]
+indent_size = 2
+trim_trailing_whitespace = false
