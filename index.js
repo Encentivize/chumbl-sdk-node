@@ -3,6 +3,7 @@
 var metric = require('./lib/metric');
 var libraryChomp = require('./lib/library-chomp.js');
 var timestore = require('./lib/timestore.js');
+var timestoreGroup = require('./lib/timestore-group.js');
 var datastore = require('./lib/datastore.js');
 var transaction = require('./lib/transaction.js');
 var lookup = require('./lib/lookup.js');
@@ -17,6 +18,8 @@ var groups = require('./lib/groups.js');
 module.exports = {
     timestore: timestore,
     timestores: timestore,
+    timestoreGroup: timestoreGroup,
+    timestoreGroups: timestoreGroup,
     transaction: transaction,
     transactions: transaction,
     chomp: chomp,
