@@ -7,19 +7,17 @@
     "name": "Martin Naude",
     "email": "martin@encentivize.co.za"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/Encentivize/chumbl"
-  },
-  "dependencies": {
-      "kwaai-restcall":"0.0.11",
-    "async":"0.9.0"
-  },
   "engines": {
     "node": ">= 0.10.0"
   },
   "license": "MIT",
   "homepage": "https://github.com/Encentivize/chumbl",
-  "_id": "chumbl@1.0.18",
-  "_from": "chumbl@"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Encentivize/chumbl"
+  },
+  "dependencies": {
+    "async": "0.9.0",
+    "kwaai-restcall-fixed": "0.0.1"
+  }
 }
