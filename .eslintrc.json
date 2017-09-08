@@ -1,19 +1,23 @@
 {
   "extends": "eslint:recommended",
-  "installedESLint": true,
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "script",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "ecmaFeatures": {}
   },
   "env": {
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "rules": {
-    "no-unused-vars": ["warn", { "vars": "all", "args": "none" }],
-    "no-console": ["off"]
+    "no-console": 0,
+    "no-unused-vars": [
+      1,
+      {
+        "vars": "all",
+        "args": "none"
+      }
+    ]
   }
 }
