@@ -1,0 +1,54 @@
+language: node_js
+sudo: false
+node_js:
+  - "6"
+
+notifications:
+  slack:
+    rooms:
+      - "encentivize:CTcUofTrOTyQrCUsVvBpD3NX#travis-ci"
+    on_success: always
+    on_failure: always
+    template:
+      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch} by %{author} %{result} in %{duration}"
+  email: false
+
+git:
+  depth: 3
+
+# whitelist
+branches:
+  only:
+    - master
+    - v2.x
+
+cache:
+  directories:
+    - "node_modules"
+
+install:
+  # Check the size of caches
+  - du -sh ./node_modules || true
+  # Disable the spinner, it looks bad on Travis
+  - npm config set spin false
+  # Log HTTP requests
+  - npm config set loglevel http
+  # Install npm dependencies and ensure that npm cache is not stale
+  - npm install
+
+before_script:
+  - npm run lint
+
+script:
+
+after_success:
+
+before_deploy:
+
+deploy:
+  provider: npm
+  email: "gitarehero@entelect.co.za"
+  api_key: $NPM_TOKEN
+  skip_cleanup: true
+  on:
+    tags: true

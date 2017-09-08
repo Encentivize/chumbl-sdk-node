@@ -1,6 +1,6 @@
 /*globals describe, it, assert, chai, should, expect */ /*jshint expr: true*/ // jshint ignore:line
 'use strict';
-require('../test-init');
+require('test-init');
 /* ----========[ end of test file setup ]========---- */
 var buildUrl = require('../lib/query-builder');
 var moment = require('moment');
