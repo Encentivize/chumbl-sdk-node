@@ -16,12 +16,6 @@ notifications:
 git:
   depth: 3
 
-# whitelist
-branches:
-  only:
-    - master
-    - v2.x
-
 cache:
   directories:
     - "node_modules"
@@ -49,8 +43,7 @@ deploy:
   - provider: npm
     email: $NPM_EMAIL
     api_key: $NPM_TOKEN
-    skip_cleanup: true
     on:
+      node: "6"
       all_branches: true
       tags: true
-      node: "6"
