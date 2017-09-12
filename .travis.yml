@@ -51,5 +51,6 @@ deploy:
     api_key: $NPM_TOKEN
     skip_cleanup: true
     on:
+      all_branches: true
       tags: true
       node: "6"
