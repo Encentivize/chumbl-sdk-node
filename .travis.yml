@@ -16,6 +16,12 @@ notifications:
 git:
   depth: 3
 
+# whitelist
+branches:
+  only:
+    - master
+    - /^v2\..+/
+
 cache:
   directories:
     - "node_modules"
