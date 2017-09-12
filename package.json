@@ -1,6 +1,6 @@
 {
   "name": "chumbl",
-  "version": "2.4.5",
+  "version": "2.4.6",
   "description": "An Node SDK for the Chumbl API",
   "main": "./index.js",
   "scripts": {
