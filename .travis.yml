@@ -1,7 +1,7 @@
 language: node_js
 sudo: false
 node_js:
-  - "6"
+  - "12.16.1"
 
 notifications:
   slack:
@@ -50,6 +50,6 @@ deploy:
     email: $NPM_EMAIL
     api_key: $NPM_TOKEN
     on:
-      node: "6"
+      node: "12.16.1"
       all_branches: true
       tags: true
